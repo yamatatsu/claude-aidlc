@@ -6,7 +6,19 @@ An implementation of [AI-DLC (AI-Driven Development Life Cycle)](https://aws.ama
 
 ## Installation
 
-### Local development (recommended)
+### From marketplace (recommended)
+
+Inside Claude Code REPL:
+
+```
+# 1. Register the marketplace
+/plugin marketplace add yamatatsu/claude-aidlc
+
+# 2. Install the plugin
+/plugin install aidlc@yamatatsu-aidlc
+```
+
+### Local development
 
 ```bash
 git clone https://github.com/yamatatsu/claude-aidlc.git

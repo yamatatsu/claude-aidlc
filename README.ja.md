@@ -6,7 +6,19 @@ AI-DLC (AI-Driven Development Life Cycle) を [Claude Code](https://claude.ai/co
 
 ## インストール
 
-### ローカル開発（推奨）
+### マーケットプレイスからインストール（推奨）
+
+Claude Code の REPL 内で以下を実行します:
+
+```
+# 1. マーケットプレイスを登録
+/plugin marketplace add yamatatsu/claude-aidlc
+
+# 2. プラグインをインストール
+/plugin install aidlc@yamatatsu-aidlc
+```
+
+### ローカル開発
 
 ```bash
 git clone https://github.com/yamatatsu/claude-aidlc.git
