@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/validate-content.sh \"$TOOL_INPUT_FILE_PATH\"",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

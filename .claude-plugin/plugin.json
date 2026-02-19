@@ -1,0 +1,14 @@
+{
+  "name": "aidlc",
+  "version": "0.1.0",
+  "description": "AI-DLC (AI-Driven Development Life Cycle) workflow plugin for Claude Code. Provides adaptive software development lifecycle management with inception, construction, and operations phases.",
+  "author": {
+    "name": "AI-DLC Contributors"
+  },
+  "repository": "https://github.com/yamatatsu/aidlc-workflows",
+  "license": "MIT",
+  "keywords": ["aidlc", "sdlc", "workflow", "development-lifecycle", "ai-driven"],
+  "skills": "./skills/",
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json"
+}
