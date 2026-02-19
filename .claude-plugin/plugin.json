@@ -5,7 +5,7 @@
   "author": {
     "name": "AI-DLC Contributors"
   },
-  "repository": "https://github.com/yamatatsu/aidlc-workflows",
+  "repository": "https://github.com/yamatatsu/claude-aidlc",
   "license": "MIT",
   "keywords": ["aidlc", "sdlc", "workflow", "development-lifecycle", "ai-driven"],
   "skills": "./skills/",

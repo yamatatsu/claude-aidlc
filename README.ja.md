@@ -9,8 +9,8 @@ AI-DLC (AI-Driven Development Life Cycle) を [Claude Code](https://claude.ai/co
 ### ローカル開発（推奨）
 
 ```bash
-git clone https://github.com/yamatatsu/aidlc-workflows.git
-claude --plugin-dir ./aidlc-workflows
+git clone https://github.com/yamatatsu/claude-aidlc.git
+claude --plugin-dir ./claude-aidlc
 ```
 
 ## 使い方

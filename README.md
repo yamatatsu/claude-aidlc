@@ -9,8 +9,8 @@ An implementation of [AI-DLC (AI-Driven Development Life Cycle)](https://aws.ama
 ### Local development (recommended)
 
 ```bash
-git clone https://github.com/yamatatsu/aidlc-workflows.git
-claude --plugin-dir ./aidlc-workflows
+git clone https://github.com/yamatatsu/claude-aidlc.git
+claude --plugin-dir ./claude-aidlc
 ```
 
 ## Usage
