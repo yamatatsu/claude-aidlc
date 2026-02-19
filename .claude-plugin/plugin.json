@@ -9,6 +9,5 @@
   "repository": "https://github.com/yamatatsu/claude-aidlc",
   "license": "MIT",
   "keywords": ["aidlc", "sdlc", "workflow", "development-lifecycle", "ai-driven"],
-  "skills": "./skills/",
-  "hooks": "./hooks/hooks.json"
+  "skills": "./skills/"
 }
