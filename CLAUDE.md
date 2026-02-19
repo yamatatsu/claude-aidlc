@@ -11,6 +11,76 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 - Claude Code プラグインの定義ファイルを本リポジトリで管理する
 - プラグイン設計においては AI-DLC の方法論を忠実に反映しつつ、Claude Code の機能に最適化する
 
+## 開発ワークフロー
+
+### ローカルテスト
+
+```bash
+# プラグインをローカルパスから直接ロードして Claude Code を起動
+claude --plugin-dir ./
+
+# デバッグモード（マニフェスト構文エラーやパス問題の確認）
+claude --debug --plugin-dir ./
+```
+
+ビルドシステムは不要（宣言的プラグイン）。変更後は Claude Code を再起動して反映を確認する。
+
+### バリデーション
+
+```bash
+# コンテンツ検証（フックが自動実行するものと同じ）
+./scripts/validate-content.sh <file-path>
+
+# AI-DLC プロジェクト状態検出
+./scripts/detect-state.sh
+
+# ステージ別アーティファクト存在チェック
+./scripts/check-artifacts.sh <stage-name>
+```
+
+`validate-content.sh` は PostToolUse フック（`hooks/hooks.json`）で Write 操作後に自動実行される。Unicode 罫線文字の禁止、タブ文字の警告、Mermaid ブロックの閉じ忘れ検出を行う。
+
+## プラグインアーキテクチャ
+
+### コンポーネント構成
+
+```
+skills/（15スキル）─── SKILL.md が reference/ の詳細手順を参照
+  ├── start, resume, status     ← エントリポイント（ワークフロー開始・再開・確認）
+  ├── inception-*（6スキル）     ← Inception フェーズ（計画・設計）
+  └── construction-*（6スキル）  ← Construction フェーズ（実装）
+
+agents/aidlc-orchestrator.md  ← 読み取り専用のワークフローアドバイザー
+hooks/hooks.json              ← Write 後のコンテンツ検証フック
+reference/                    ← スキルから参照される詳細手順書（24ファイル）
+  ├── common/（11）            ← 全フェーズ共通ルール
+  ├── inception/（7）          ← Inception フェーズ手順
+  └── construction/（6）       ← Construction フェーズ手順
+templates/                    ← 状態管理・ドキュメントのテンプレート（4ファイル）
+scripts/                      ← バリデーション・状態検出スクリプト（3ファイル）
+```
+
+### スキル実行フロー
+
+1. `/aidlc:start` または `/aidlc:resume` でワークフロー開始
+2. 各スキルが `aidlc-docs/aidlc-state.md`（単一の状態管理ファイル）を読み書き
+3. Inception フェーズ: workspace-detection → (reverse-engineering) → requirements → (user-stories) → workflow-planning → (application-design) → (units-generation)
+4. Construction フェーズ: 各 Unit に対して (functional-design) → (nfr-requirements) → (nfr-design) → (infrastructure-design) → code-generation、最後に build-and-test
+5. 括弧付きステージは条件付き（workflow-planning で EXECUTE/SKIP を決定）
+
+### スキル設計規約
+
+- 全スキルは `disable-model-invocation: true`（手動呼び出しのみ）、`status` のみ例外
+- `model: opus` が基本。`status` のみ `model: haiku` + `context: fork`（高速読み取り専用）
+- スキル本体は手順の概要のみ記載し、詳細は `reference/` にリンク（500行以下制約）
+- AI 主導の質問は `.md` ファイル経由（`[Answer]:` タグ形式）
+- 二部構成スキル: Planning → 人間承認 → Generation の流れ
+- 成果物はすべて `aidlc-docs/` ディレクトリに出力（コード生成のみワークスペースルート）
+
+### マニフェスト（`.claude-plugin/plugin.json`）
+
+プラグイン名は `aidlc`。スキルは `/aidlc:<skill-name>` で呼び出される。`${CLAUDE_PLUGIN_ROOT}` 変数がフックスクリプトのパス解決に使われる。
+
 ## AI-DLC の基本原則
 
 スキル設計時にこれらの原則を維持すること:
