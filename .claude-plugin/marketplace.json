@@ -1,7 +1,8 @@
 {
   "name": "yamatatsu-aidlc",
   "owner": {
-    "name": "AI-DLC Contributors"
+    "name": "yamatatsu",
+    "email": "the.kinnikuman@gmail.com"
   },
   "plugins": [
     {
