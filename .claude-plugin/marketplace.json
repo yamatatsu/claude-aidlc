@@ -1,0 +1,13 @@
+{
+  "name": "yamatatsu-aidlc",
+  "owner": {
+    "name": "AI-DLC Contributors"
+  },
+  "plugins": [
+    {
+      "name": "aidlc",
+      "source": "./",
+      "description": "AI-DLC (AI-Driven Development Life Cycle) workflow plugin for Claude Code"
+    }
+  ]
+}
